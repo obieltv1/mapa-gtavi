@@ -9,6 +9,8 @@
   const CHAVE_ESC_FEITOS = P + 'esconder-feitos';
   const OCULTAS_PADRAO = ['Bus Stop', 'Electric Charger', 'ATM'];
   const CHAVE_FECHADAS = P + 'secoes-fechadas';
+  const CHAVE_SO = P + 'so'; // modo "só esta categoria": {c, antes: [ocultas de antes]}
+  const CHAVE_VISTA = P + 'vista-progresso';
   const SPRITE = new Image();
   SPRITE.src = 'icones/mapa.png';
 
@@ -28,6 +30,8 @@
   let ocultas = null; // Set de ids de categoria
   let esconderFeitos = ler(CHAVE_ESC_FEITOS, false);
   let modo = ler(CHAVE_MODO, 'Day');
+  let so = ler(CHAVE_SO, null);
+  let vista = ler(CHAVE_VISTA, 'tipo');
 
   // marcador: ícone do MapGenie desenhado no canvas; feito = apagado + selo verde com check
   const Ponto = L.CircleMarker.extend({
@@ -87,7 +91,9 @@
     feitos = new Set([...feitos].filter((id) => porId.has(id) && marcavel(porId.get(id))));
 
     montarMapa();
+    if (so && !catPorId.has(so.c)) so = null;
     montarFiltros();
+    pintarSo();
     atualizarProgresso();
     ligarEventos();
     abrirDoHash();
@@ -214,8 +220,54 @@
     const pct = total ? Math.round((feitosN / total) * 1000) / 10 : 0;
     const pctTxt = pct.toString().replace('.', ',');
     $('#progresso-mini').innerHTML = `<b>${feitosN}</b>/${total}<span>${pctTxt}% feito</span>`;
-    let h = `<div class="prog-total"><div class="num">${feitosN}<span>/${total}</span></div>
+    $('#prog-total').innerHTML = `<div class="prog-total"><div class="num">${feitosN}<span>/${total}</span></div>
       <p>${pctTxt}% das coleções e atividades</p><div class="barra"><i style="width:${pct}%"></i></div></div>`;
+    document.querySelectorAll('.seg').forEach((b) => {
+      const on = b.dataset.vista === vista;
+      b.classList.toggle('ativa', on);
+      b.setAttribute('aria-pressed', String(on));
+    });
+    $('#prog-dica').textContent = vista === 'bairro'
+      ? 'Toque num bairro para ir até ele no mapa.'
+      : 'Toque numa linha para ver só ela no mapa.';
+    $('#lista-progresso').innerHTML = vista === 'bairro' ? progressoBairros(valem) : progressoTipos();
+  }
+
+  function linhaProg(attr, icone, nome, f, t) {
+    return `<button class="prog-c${f === t ? ' completo' : ''}${icone ? '' : ' sem-ico'}" ${attr}>${icone}<span>${esc(nome)}</span><b>${f}/${t}</b>
+      <span class="barra"><i style="width:${t ? (f / t) * 100 : 0}%"></i></span></button>`;
+  }
+
+  // por bairro: agrupado pelos 5 condados, bairros em ordem alfabética
+  function progressoBairros(valem) {
+    const porCond = new Map();
+    valem.forEach((l) => {
+      if (!l.r) return;
+      const cond = (D.condados && D.condados[l.r]) || l.r;
+      if (!porCond.has(cond)) porCond.set(cond, new Map());
+      const bs = porCond.get(cond);
+      if (!bs.has(l.r)) bs.set(l.r, [0, 0]);
+      const v = bs.get(l.r);
+      v[1]++;
+      if (feitos.has(l.id)) v[0]++;
+    });
+    const nome = (id) => D.regioes[id] || '';
+    let h = '';
+    [...porCond.keys()].sort((a, b) => nome(a).localeCompare(nome(b), 'pt-BR')).forEach((cond) => {
+      const bs = porCond.get(cond);
+      let gt = 0, gf = 0, linhas = '';
+      [...bs.keys()].sort((a, b) => nome(a).localeCompare(nome(b), 'pt-BR')).forEach((r) => {
+        const [f, t] = bs.get(r);
+        gt += t; gf += f;
+        linhas += linhaProg(`data-bairro="${r}"`, '', nome(r), f, t);
+      });
+      h += `<section class="prog-g"><h3>${esc(nome(cond))}<span>${gf}/${gt}</span></h3>${linhas}</section>`;
+    });
+    return h;
+  }
+
+  function progressoTipos() {
+    let h = '';
     D.secoes.filter((s) => s.conta).forEach((s) => {
       D.grupos.filter((g) => g.s === s.id).forEach((g) => {
         const cats = D.categorias.filter((c) => c.g === g.id).sort((a, b) => a.ordem - b.ordem);
@@ -223,13 +275,69 @@
         cats.forEach((c) => {
           const ls = locaisPorCat.get(c.id), t = ls.length, f = ls.filter((l) => feitos.has(l.id)).length;
           gt += t; gf += f;
-          linhas += `<div class="prog-c${f === t ? ' completo' : ''}">${ico(c)}<span>${esc(c.nome)}</span><b>${f}/${t}</b>
-            <div class="barra"><i style="width:${t ? (f / t) * 100 : 0}%"></i></div></div>`;
+          linhas += linhaProg(`data-so="${c.id}"`, ico(c), c.nome, f, t);
         });
         h += `<section class="prog-g"><h3>${esc(g.nome)}<span>${gf}/${gt}</span></h3>${linhas}</section>`;
       });
     });
-    $('#lista-progresso').innerHTML = h;
+    return h;
+  }
+
+  // ---------- só esta categoria ----------
+  function soCategoria(id) {
+    const antes = so ? so.antes : [...ocultas];
+    so = { c: id, antes };
+    ocultas = new Set(D.categorias.filter((c) => c.id !== id).map((c) => c.id));
+    gravar(CHAVE_SO, so);
+    mudouFiltro();
+    pintarSo();
+    const ls = locaisPorCat.get(id).filter(visivel);
+    if (ls.length) mostrarArea(ls);
+    else { fecharGaveta(); aviso(esconderFeitos ? 'Você já fez tudo desta categoria.' : 'Nada desta categoria no mapa.'); }
+  }
+
+  function sairDoSo() {
+    if (!so) return;
+    ocultas = new Set(so.antes);
+    so = null;
+    gravar(CHAVE_SO, null);
+    mudouFiltro();
+    pintarSo();
+  }
+
+  // mexeu no filtro na mão: o modo "só" acaba e fica o filtro novo
+  function largarSo() {
+    if (!so) return;
+    so = null;
+    gravar(CHAVE_SO, null);
+    pintarSo();
+  }
+
+  function pintarSo() {
+    $('#so-barra').hidden = !so;
+    if (so) $('#so-nome').textContent = 'Só: ' + catPorId.get(so.c).nome;
+    if (atual) pintarBotaoSo();
+  }
+
+  function pintarBotaoSo() {
+    const c = catPorId.get(atual.c), ativo = so && so.c === c.id;
+    $('#btn-so').textContent = ativo ? 'Mostrar o resto do mapa' : `Ver só ${c.nome} no mapa`;
+  }
+
+  // enquadra uma lista de locais no mapa
+  function mostrarArea(ls) {
+    fecharGaveta();
+    if (atual) fecharCartao();
+    mapa.stop();
+    mapa.fitBounds(L.latLngBounds(ls.map((l) => [l.lat, l.lng])), { padding: [70, 40], maxZoom: 14, animate: true });
+  }
+
+  function irParaBairro(r) {
+    const ls = D.locais.filter((l) => l.r === r && marcavel(l));
+    if (!ls.length) return;
+    const falta = ls.filter((l) => !feitos.has(l.id)).length;
+    mostrarArea(ls);
+    aviso(falta ? `${D.regioes[r]}: falta${falta > 1 ? 'm' : ''} ${falta}.` : `${D.regioes[r]}: tudo feito.`);
   }
 
   // ---------- cartão ----------
@@ -276,6 +384,7 @@
     pintarFotos(l);
     $('#cartao-desc').innerHTML = descricao(l.d) || (c.info ? `<p>${esc(c.info)}</p>` : '');
     $('#btn-feito').hidden = !marcavel(l);
+    pintarBotaoSo();
     pintarBotaoFeito();
     cartao.hidden = false;
     cartao.scrollTop = 0;
@@ -455,6 +564,22 @@
     $('#visor-fotos').addEventListener('click', (e) => { if (e.target === e.currentTarget) fecharVisor(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#visor').hidden) { e.stopImmediatePropagation(); fecharVisor(); } }, true);
     $('#btn-feito').addEventListener('click', () => { if (atual) { alternarFeito(atual); pintarBotaoFeito(); } });
+    $('#btn-so').addEventListener('click', () => {
+      if (!atual) return;
+      if (so && so.c === atual.c) sairDoSo(); else soCategoria(atual.c);
+    });
+    $('#so-sair').addEventListener('click', sairDoSo);
+    $('#lista-progresso').addEventListener('click', (e) => {
+      const s = e.target.closest('[data-so]');
+      if (s) { soCategoria(+s.dataset.so); return; }
+      const b = e.target.closest('[data-bairro]');
+      if (b) irParaBairro(+b.dataset.bairro);
+    });
+    document.querySelectorAll('.seg').forEach((b) => b.addEventListener('click', () => {
+      vista = b.dataset.vista;
+      gravar(CHAVE_VISTA, vista);
+      atualizarProgresso();
+    }));
     $('#fechar-cartao').addEventListener('click', fecharCartao);
     $('#cartao-desc').addEventListener('click', (e) => {
       const s = e.target.closest('.spoiler');
@@ -512,17 +637,18 @@
         return;
       }
       const c = e.target.closest('.cat');
-      if (c) { const id = +c.dataset.c; ocultas.has(id) ? ocultas.delete(id) : ocultas.add(id); mudouFiltro(); return; }
+      if (c) { largarSo(); const id = +c.dataset.c; ocultas.has(id) ? ocultas.delete(id) : ocultas.add(id); mudouFiltro(); return; }
       const g = e.target.closest('.grupo-alt');
       if (g) {
         const cats = D.categorias.filter((x) => x.g === +g.dataset.g);
         const todas = cats.every((x) => !ocultas.has(x.id));
+        largarSo();
         cats.forEach((x) => (todas ? ocultas.add(x.id) : ocultas.delete(x.id)));
         mudouFiltro();
       }
     });
-    $('#mostrar-tudo').addEventListener('click', () => { ocultas.clear(); mudouFiltro(); });
-    $('#esconder-tudo').addEventListener('click', () => { D.categorias.forEach((c) => ocultas.add(c.id)); mudouFiltro(); });
+    $('#mostrar-tudo').addEventListener('click', () => { largarSo(); ocultas.clear(); mudouFiltro(); });
+    $('#esconder-tudo').addEventListener('click', () => { largarSo(); D.categorias.forEach((c) => ocultas.add(c.id)); mudouFiltro(); });
     $('#esconder-feitos').addEventListener('change', (e) => {
       esconderFeitos = e.target.checked;
       gravar(CHAVE_ESC_FEITOS, esconderFeitos);

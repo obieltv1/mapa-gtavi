@@ -36,6 +36,11 @@
 
 <div class="progresso-mini" id="progresso-mini" aria-live="polite"></div>
 
+<div class="so-barra" id="so-barra" hidden>
+  <span id="so-nome"></span>
+  <button id="so-sair" class="so-sair">Mostrar o resto</button>
+</div>
+
 <section id="gaveta" class="gaveta" aria-label="Painel">
   <button class="alca" id="alca" aria-expanded="false" aria-controls="gaveta-corpo">
     <span class="alca-barra" aria-hidden="true"></span>
@@ -56,6 +61,12 @@
       <div id="lista-grupos"></div>
     </div>
     <div class="painel" data-painel="progresso" hidden>
+      <div id="prog-total"></div>
+      <div class="segmento" role="group" aria-label="Ver progresso">
+        <button class="seg ativa" data-vista="tipo" aria-pressed="true">Por tipo</button>
+        <button class="seg" data-vista="bairro" aria-pressed="false">Por bairro</button>
+      </div>
+      <p class="texto" id="prog-dica"></p>
       <div id="lista-progresso"></div>
     </div>
     <div class="painel" data-painel="backup" hidden>
@@ -81,6 +92,7 @@
   <div id="cartao-fotos" class="cartao-fotos" hidden></div>
   <div id="cartao-desc" class="cartao-desc"></div>
   <button id="btn-feito" class="btn btn-feito">Marcar como feito</button>
+  <button id="btn-so" class="btn btn-2 btn-so"></button>
 </article>
 
 <div id="visor" class="visor" hidden role="dialog" aria-modal="true" aria-label="Fotos do local">

@@ -104,6 +104,21 @@ button{cursor:pointer;touch-action:manipulation}
 .prog-total p{margin:4px 0 10px;color:var(--texto-2);font-size:14px}
 .barra{height:8px;border-radius:4px;background:var(--linha);overflow:hidden}
 .barra i{display:block;height:100%;background:var(--sol);border-radius:4px}
+/* progresso: por tipo ou por bairro */
+.segmento{display:flex;gap:4px;padding:4px;background:var(--superficie);border-radius:12px;margin-bottom:8px}
+.seg{flex:1;height:38px;border:0;border-radius:9px;background:transparent;color:var(--texto-2);font-weight:600;font-size:14px;cursor:pointer}
+.seg.ativa{background:var(--noite);color:var(--texto)}
+#prog-dica{font-size:13px;margin:0 0 10px}
+button.prog-c{border:0;background:transparent;color:inherit;font:inherit;font-size:14px;text-align:left;border-radius:8px;padding:6px 4px;margin:0 -4px;width:calc(100% + 8px);cursor:pointer}
+button.prog-c:hover,button.prog-c:active{background:var(--superficie)}
+.prog-c.sem-ico{grid-template-columns:1fr auto}
+.prog-c .barra{display:block}
+/* modo "só esta categoria" */
+.so-barra{position:fixed;z-index:900;right:12px;top:calc(68px + var(--topo-seguro));max-width:calc(100vw - 190px);display:flex;align-items:center;gap:8px;background:var(--noite);border:1px solid var(--rosa);border-radius:20px;padding:4px 4px 4px 12px;box-shadow:var(--sombra);font-size:13px;font-weight:600}
+.so-barra[hidden]{display:none}
+.so-barra span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.so-sair{flex:0 0 auto;height:32px;padding:0 12px;border:0;border-radius:16px;background:var(--rosa);color:#fff;font-weight:600;font-size:13px;cursor:pointer}
+.btn-so{width:100%;margin-top:8px}
 .prog-g{margin-bottom:12px}
 .prog-g h3{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 6px;font-family:var(--titulo);font-weight:800;font-size:19px;letter-spacing:.02em}
 .prog-g h3 span{font-family:var(--corpo);font-size:13px;font-weight:600;color:var(--texto-2)}
