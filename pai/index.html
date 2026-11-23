@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mapa de Leonida (Pai)</title>
+<meta name="description" content="Mapa de Leonida (GTA 6) em português, com seu progresso salvo no aparelho.">
+<meta name="theme-color" content="#0E1430">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Leonida Pai">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icones/icone-192.png">
+<link rel="apple-touch-icon" href="icones/icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<div id="mapa" aria-label="Mapa de Leonida"></div>
+
+<header class="topo">
+  <div class="busca">
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.2-4.2"/></svg>
+    <input id="busca" type="search" placeholder="Buscar local, categoria ou bairro" autocomplete="off" aria-label="Buscar">
+    <button id="limpar-busca" class="btn-ic" hidden aria-label="Limpar busca"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <button id="btn-dia" class="btn-flut" aria-label="Trocar para mapa noturno" title="Dia / noite">
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
+  </button>
+  <ul id="resultados" class="resultados" hidden></ul>
+</header>
+
+<div class="progresso-mini" id="progresso-mini" aria-live="polite"></div>
+
+<section id="gaveta" class="gaveta" aria-label="Painel">
+  <button class="alca" id="alca" aria-expanded="false" aria-controls="gaveta-corpo">
+    <span class="alca-barra" aria-hidden="true"></span>
+    <span class="alca-txt">Filtros e progresso</span>
+  </button>
+  <nav class="abas" role="tablist">
+    <button role="tab" class="aba ativa" data-aba="filtros" aria-selected="true">Filtros</button>
+    <button role="tab" class="aba" data-aba="progresso" aria-selected="false">Progresso</button>
+    <button role="tab" class="aba" data-aba="backup" aria-selected="false">Backup</button>
+  </nav>
+  <div id="gaveta-corpo" class="gaveta-corpo">
+    <div class="painel" data-painel="filtros">
+      <div class="acoes-linha">
+        <button class="chip" id="mostrar-tudo">Mostrar tudo</button>
+        <button class="chip" id="esconder-tudo">Esconder tudo</button>
+        <label class="chip chip-check"><input type="checkbox" id="esconder-feitos"> Esconder o que já fiz</label>
+      </div>
+      <div id="lista-grupos"></div>
+    </div>
+    <div class="painel" data-painel="progresso" hidden>
+      <div id="lista-progresso"></div>
+    </div>
+    <div class="painel" data-painel="backup" hidden>
+      <p class="texto">Suas marcações ficam salvas só neste aparelho. Baixe um backup de vez em quando, e use ele para passar o progresso para outro celular ou PC.</p>
+      <div class="acoes-col">
+        <button class="btn" id="baixar-backup">Baixar backup</button>
+        <label class="btn btn-2">Restaurar backup<input type="file" id="arquivo-backup" accept=".json,application/json" hidden></label>
+        <button class="btn btn-perigo" id="zerar">Apagar todo o progresso</button>
+      </div>
+      <p class="texto mudo">Mapa e posições dos locais: MapGenie. Textos traduzidos para uso pessoal.</p>
+    </div>
+  </div>
+</section>
+
+<article id="cartao" class="cartao" hidden aria-live="polite">
+  <button class="btn-ic fechar" id="fechar-cartao" aria-label="Fechar"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div class="cartao-cab">
+    <span class="ico" id="cartao-cor"></span>
+    <span id="cartao-cat" class="cartao-cat"></span>
+  </div>
+  <h2 id="cartao-titulo"></h2>
+  <p id="cartao-regiao" class="cartao-regiao"></p>
+  <div id="cartao-desc" class="cartao-desc"></div>
+  <button id="btn-feito" class="btn btn-feito">Marcar como feito</button>
+</article>
+
+<div id="aviso" class="aviso" role="status" hidden></div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
