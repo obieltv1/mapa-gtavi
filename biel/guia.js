@@ -28,11 +28,16 @@
   // ---------- blocos ----------
   const BARRAS = ['Dano', 'Precisão', 'Manejo', 'Alcance'];
   const nota = (n) => (n ? `<p class="g-nota">${fmt(n)}</p>` : '');
+  // ícone do jogo (recortado das imagens do guia); é enfeite, o nome vem escrito ao lado
+  const ico = (i, cls = '') => (i.ico ? `<img class="g-ico${cls}" src="icones-guia/${esc(i.ico)}.png" alt="" width="40" height="40" loading="lazy" decoding="async">` : '');
+  const cab = (i, txt, extra = '') => (i.ico
+    ? `<h3 class="g-cab${extra}">${ico(i)}<span>${fmt(txt)}</span></h3>`
+    : `<h3${extra ? ` class="${extra.trim()}"` : ''}>${fmt(txt)}</h3>`);
 
   const R = {
     escala: (b) => `<ol class="g-escala">${b.itens.map((i) => `
-      <li class="g-degrau${i.vazado ? ' vazado' : ''}"${corVar(i.cor)}>
-        <span class="g-no" aria-hidden="true"></span>
+      <li class="g-degrau${i.vazado ? ' vazado' : ''}${i.ico ? ' com-ico' : ''}"${corVar(i.cor)}>
+        ${i.ico ? ico(i, ' g-ico-no') : '<span class="g-no" aria-hidden="true"></span>'}
         <div>
           <h3>${fmt(i.nome)}</h3>
           ${i.orig ? `<p class="g-orig">${fmt(i.orig)}</p>` : ''}
@@ -43,7 +48,7 @@
 
     linhas: (b) => `<div class="g-linhas">${b.itens.map((i) => `
       <section class="g-linha"${corVar(i.cor)}>
-        <h3>${fmt(i.nome)}</h3>
+        ${cab(i, i.nome)}
         ${i.sub ? `<p class="g-sub">${fmt(i.sub)}</p>` : ''}
         ${i.barras ? barras(i.barras) : ''}
         <p>${fmt(i.texto)}</p>
@@ -58,7 +63,7 @@
       <li><strong>${fmt(i.t)}.</strong> ${fmt(i.txt)}</li>`).join('')}</ul></aside>`,
 
     duas: (b) => `<div class="g-duas">${b.itens.map((i) => `
-      <section class="g-caixa"${corVar(i.cor)}><h3>${fmt(i.t)}</h3><p>${fmt(i.txt)}</p></section>`).join('')}</div>`,
+      <section class="g-caixa"${corVar(i.cor)}>${cab(i, i.t)}<p>${fmt(i.txt)}</p></section>`).join('')}</div>`,
 
     degraus: (b) => `<h3 class="g-secao">${fmt(b.titulo)}</h3><ol class="g-escada">${b.itens.map((i, n) => `
       <li style="--n:${n}"><span class="g-valor">${fmt(i.valor)}</span><span>${fmt(i.txt)}</span></li>`).join('')}</ol>${nota(b.nota)}`,
@@ -75,7 +80,7 @@
 
     passos: (b) => `<ol class="g-passos">${b.itens.map((i) => `
       <li>
-        <h3>${fmt(i.nome)}</h3>
+        ${cab(i, i.nome)}
         <p>${fmt(i.texto)}</p>
         ${i.extra ? `<div class="g-extra"><h4>${fmt(i.extra.nome)}</h4><p class="g-sub">${fmt(i.extra.sub)}</p><p>${fmt(i.extra.texto)}</p></div>` : ''}
       </li>`).join('')}</ol>`,

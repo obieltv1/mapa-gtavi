@@ -1,9 +1,12 @@
 // Guarda o app para abrir sem internet; os pedaços do mapa vão ficando guardados conforme você navega.
 // o nome do cache leva a pasta, para o mapa do Biel e o do pai não apagarem o cache um do outro
 const BASE = new URL('./', self.location).pathname;
-const VERSAO = 'leonida-v8' + BASE;
+const VERSAO = 'leonida-v9' + BASE;
 const APP = ['./', 'index.html', 'estilo.css', 'app.js', 'guia.js', 'guia.json', 'dados.json', 'manifest.webmanifest',
   'vendor/leaflet.js', 'vendor/leaflet.css', 'icones/icone-192.png', 'icones/icone-512.png', 'icones/icone-180.png', 'icones/lista.png', 'icones/mapa.png'];
+// ícones do jogo usados no guia
+const ICONES_GUIA = ['arma', 'buckme', 'cabide', 'calor-aparencia', 'calor-arma', 'calor-camera', 'calor-nuvem', 'calor-parceiro', 'calor-roupa', 'calor-veiculo', 'camera', 'carro', 'carro-avancado', 'carro-fuga', 'carteira', 'coracao-1', 'coracao-2', 'coracao-3', 'coracao-4', 'coracao-desce', 'coracao-sobe', 'detalhes', 'estrela-1', 'estrela-2', 'estrela-3', 'estrela-4', 'estrela-5', 'key-cloner', 'motor', 'olho', 'pendente', 'perfil-calejado', 'perfil-irrecuperavel', 'perfil-profissional', 'perfil-psicopata', 'perfil-ruptura', 'perfil-violento', 'pino-randy', 'pino-waink', 'protecao', 'rastreador-avancado', 'rastreador-padrao', 'waink'];
+APP.push(...ICONES_GUIA.map((n) => 'icones-guia/' + n + '.png'));
 const TILES = 'leonida-tiles';
 const FOTOS = 'leonida-fotos'; // fotos vistas ficam guardadas (servem aos dois mapas)
 const LIMITE_TILES = 4000;
