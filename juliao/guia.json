@@ -1,0 +1,278 @@
+{
+  "credito": "Guia feito por King0fCrowes (via BattlefieldNET), traduzido para uso pessoal. Informações de PC Gamer, GamesRadar, IGN, GameSpot, GTABase e outros sites, de novembro de 2026. Onde as fontes discordam, está avisado.",
+  "topicos": [
+    {
+      "id": "perfil",
+      "aba": "Perfil criminoso",
+      "titulo": "Perfil criminoso",
+      "resumo": "Seu jeito de jogar define quem Jason e Lucia viram. Cada um tem o próprio perfil. A escala vai do mais limpo ao pior.",
+      "blocos": [
+        {"tipo": "escala", "itens": [
+          {"nome": "Profissional", "orig": "Professional", "cor": "#FFD34D", "texto": "Furtividade, nocautes sem matar, sair na conversa, apagar câmeras e fugas limpas.", "nota": "Sobe com ações sem matar e gentilezas. Sem lado ruim."},
+          {"nome": "Calejado", "orig": "Hardened", "cor": "#FF9A3D", "texto": "Mata inimigo quando precisa, mas não machuca policial nem civil à toa.", "nota": "Igual ao Profissional: sem lado ruim."},
+          {"nome": "Violento", "orig": "Violent", "cor": "#B57BFF", "texto": "Pula as opções sem matar e mata inimigos, policiais e civis.", "nota": "Tiro na cabeça empurra para cá."},
+          {"nome": "Psicopata", "orig": "Psycho", "cor": "#C9C6D9", "texto": "Mata muito policial e civil indefeso, machuca bicho de estimação ou animais (caçar não conta).", "nota": "Não dá para se render, e a polícia pode atirar assim que te vê."},
+          {"nome": "Ponto de ruptura", "orig": "Breaking Point", "cor": "#8E8AA8", "texto": "Último aviso. Pare agora para não cair em Irrecuperável.", "nota": "Ainda dá para voltar."},
+          {"nome": "Irrecuperável", "orig": "Irredeemable", "cor": "#55526B", "texto": "Ficou tempo demais como Psicopata. Isso muda a história.", "nota": "Permanente: sem rendição e a polícia atira assim que te vê."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Dá para subir e descer", "txt": "Você anda livre pelos quatro primeiros níveis. Só o Irrecuperável é para sempre."},
+          {"t": "Assalto sem sujar o perfil", "txt": "Ameaçar pode; violência te empurra para baixo. Use máscara e apague as câmeras."},
+          {"t": "Coisa pequena conta", "txt": "Fazer carinho em cachorro, gentilezas e ferir em vez de matar ajudam."}
+        ]}
+      ]
+    },
+    {
+      "id": "rastreadores",
+      "aba": "Rastreadores",
+      "titulo": "Rastreador de carro",
+      "resumo": "Todo carro roubado tem nenhum, padrão ou avançado. Veja como descobrir, como conviver e quem compra.",
+      "blocos": [
+        {"tipo": "linhas", "itens": [
+          {"nome": "Sem rastreador", "sub": "Em geral, carros mais baratos", "cor": "#4BE3A4", "texto": "Nada para desligar. O **Moses** compra e registra carro sem rastreador a partir do capítulo 2, e o primeiro registro é de graça. O **Pay 'n' Spray** também aceita a partir do capítulo 3.", "nota": "O mais fácil de vender."},
+          {"nome": "Padrão", "sub": "Em geral, carros médios", "cor": "#FFB547", "texto": "Não entrega onde você está, mas não dá para modificar o carro até registrar. O Moses recusa. A partir do capítulo 3, o Pay 'n' Spray registra ou compra.", "nota": "Registre antes de mexer."},
+          {"nome": "Avançado", "sub": "Em geral, carros de luxo", "cor": "#FF3E8A", "texto": "Não sai. Um ícone vermelho fica em cima do minimapa. Se você andar devagar ou parar, um anel vai enchendo; quando enche, a polícia é avisada. Ande rápido até entregar.", "nota": "Mantenha a velocidade."}
+        ]},
+        {"tipo": "titulo", "txt": "Como lidar"},
+        {"tipo": "linhas", "itens": [
+          {"nome": "Escanear com o WAiNK", "texto": "[CIMA] abre o celular; segure [RB] para escanear. O cartão mostra o tipo de rastreador e se você precisa do Key Cloner."},
+          {"nome": "Key Cloner", "sub": "Capítulo 3", "texto": "Vem da missão do Randy \"Clonin' Keys, Makin' GS\". Muitos carros de luxo sem chave têm rastreador avançado e precisam dele."},
+          {"nome": "Loja do Randy", "texto": "Perto dela o rastreador avançado desliga e o ícone fica cinza."},
+          {"nome": "Carro avançado mais para frente", "texto": "Depois da missão da Wish List do Randy com o '64 Declasse Mamba GT em Leaf Links, espere a ligação dele. Shacknews e SlashGear dizem que aí o Pay 'n' Spray passa a comprar e registrar carro com rastreador avançado; guias mais antigos dizem que só o Randy aceita.", "nota": "Fontes discordam."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Planeje o caminho", "txt": "Uma rodovia ajuda a manter a velocidade."},
+          {"t": "Olho no anel", "txt": "Ele vai enchendo; não é uma velocidade fixa."},
+          {"t": "Batida custa caro", "txt": "O Randy paga bônus por carro em bom estado."}
+        ]}
+      ]
+    },
+    {
+      "id": "relacionamento",
+      "aba": "Relacionamento",
+      "titulo": "Relacionamento",
+      "resumo": "Os quatro níveis do casal Jason e Lucia, do mais frio ao mais quente.",
+      "blocos": [
+        {"tipo": "escala", "itens": [
+          {"nome": "Na reserva", "orig": "Running on Empty · 1 de 4", "cor": "#8E8AA8", "texto": "Esfriou. Ainda são parceiros, mas distantes.", "nota": "Coração partido."},
+          {"nome": "Morno", "orig": "Not So Hot · 2 de 4", "cor": "#B57BFF", "texto": "Parceria mais fria, só de trabalho.", "nota": "PC Gamer, GamesRadar e Polygon chamam de \"Partners in Crime\"."},
+          {"nome": "Apaixonados", "orig": "Crazy in Love · 3 de 4", "cor": "#FF6FA8", "texto": "Um coração rosa aparece quando você faz algo que aproxima os dois.", "nota": "Coração rosa cheio."},
+          {"nome": "Pegando fogo", "orig": "Hot Together · 4 de 4", "cor": "#FF3E8A", "texto": "Carinho às claras. As cenas íntimas dependem deste nível.", "nota": "Coração em chamas."}
+        ]},
+        {"tipo": "duas", "itens": [
+          {"t": "O que aproxima", "cor": "#4BE3A4", "txt": "Passar tempo juntos, jogar com os dois, cumprimentar, dar a mão, beijo ou abraço, pagar comida ou bebida, responder mensagens, selfies, dormir ou sentar no sofá juntos, missões, roubos, esportes e saídas a dois. Algumas escolhas da história dão corações."},
+          {"t": "O que afasta", "cor": "#FF6B6B", "txt": "Ignorar mensagens e ligações, ficar muito tempo separados, jogar só com um, recusar convites, dar bolo, falhar missão em dupla, atropelar o parceiro. Algumas escolhas da história tiram um coração."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Como ver", "txt": "Segure [DIREITA] para o Menu do Parceiro, ou abra a aba Jason & Lucia. O coração entre as fotos é o seu nível."},
+          {"t": "Jogue com os dois", "txt": "Ficar só num personagem esfria a relação."},
+          {"t": "Sem término", "txt": "Eles seguem parceiros: não tem separação nem outro romance. A GamesRadar diz que um perfil Irrecuperável pode impedir o romance de voltar."}
+        ]}
+      ]
+    },
+    {
+      "id": "procurado",
+      "aba": "Procurado",
+      "titulo": "Estrelas e calor",
+      "resumo": "A cor e o preenchimento das estrelas mostram o quanto a polícia sabe de você.",
+      "blocos": [
+        {"tipo": "escala", "itens": [
+          {"nome": "Suspeito desconhecido", "orig": "Suspect Unknown · contorno branco", "cor": "#F4F0FF", "vazado": true, "texto": "O crime foi denunciado e a polícia está a caminho, mas não sabe que foi você.", "nota": "Saia da área com calma."},
+          {"nome": "Em perseguição", "orig": "In Pursuit · branca cheia", "cor": "#F4F0FF", "texto": "Eles te veem e sabem quem você é. Estrela piscando quer dizer que você está despistando.", "nota": "Saia do campo de visão."},
+          {"nome": "Perderam de vista", "orig": "Visual Lost · cinza cheia", "cor": "#8E8AA8", "texto": "Têm sua descrição, mas não te veem.", "nota": "Melhor hora para fugir e limpar o calor."},
+          {"nome": "Calor", "orig": "Heat · vermelha cheia", "cor": "#FF4D4D", "texto": "Você despistou, mas a área está em alerta para alguém parecido com você. Aparece como zona vermelha no mapa.", "nota": "Limpe os ícones de calor ou saia da zona."},
+          {"nome": "Área em alerta", "orig": "Area Alert · contorno vermelho", "cor": "#FF4D4D", "vazado": true, "texto": "A área segue em alerta, mas você não bate mais com a descrição.", "nota": "Não cometa outro crime ali e esconda armas longas."}
+        ]},
+        {"tipo": "titulo", "txt": "Ícones de calor", "sub": "Os ícones vermelhos embaixo das estrelas. Limpe todos para sumir."},
+        {"tipo": "linhas", "itens": [
+          {"nome": "Aparência", "texto": "Troque boné, óculos ou bandana, ou mude o cabelo. Máscara se põe antes do crime, não depois."},
+          {"nome": "Roupa", "texto": "Troque de roupa; dá para guardar até cinco roupas no porta-malas."},
+          {"nome": "Veículo", "texto": "Largue o carro, ou despiste a polícia e pinte no Pay 'n' Spray."},
+          {"nome": "Arma à mostra", "texto": "Guarde a pistola com [LB]; arma longa vai para o porta-malas ou para o chão."},
+          {"nome": "Parceiro", "texto": "Viram vocês juntos. Separe pelo Menu do Parceiro (segure [DIREITA], depois [Y])."},
+          {"nome": "Câmera", "texto": "A gravação fica no próprio lugar: ache o gravador e apague."},
+          {"nome": "Câmera na nuvem", "texto": "Já subiu e não dá para destruir; comum em banco.", "nota": "Saia e conte com a máscara e a troca de roupa."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Troque antes, largue o carro depois", "txt": "Mude a aparência primeiro e só então abandone o veículo."},
+          {"t": "Te viram de novo?", "txt": "Talvez precise limpar todos os ícones outra vez."},
+          {"t": "Fique na sua", "txt": "O calor some sozinho com o tempo."}
+        ]}
+      ]
+    },
+    {
+      "id": "buckme",
+      "aba": "BuckMe",
+      "titulo": "BuckMe (banco)",
+      "resumo": "Como subir o limite da conta, liberar pagamentos pendentes e não perder dinheiro.",
+      "blocos": [
+        {"tipo": "linhas", "itens": [
+          {"nome": "Conta corrente", "sub": "Checking", "texto": "Começa com limite de $15.000. Cada personagem tem a sua."},
+          {"nome": "Pendente", "sub": "Pending", "texto": "Pagamento acima do limite fica pendente e não se perde. Gaste, ou passe dinheiro para a Poupança da Família."},
+          {"nome": "Gastar ou guardar", "texto": "Compras acima de $1.000 passam pelo BuckMe. Celular ([CIMA]) > BuckMe > \"Buck Yourself\" manda dinheiro para a Poupança da Família.", "nota": "Só vai, não volta."},
+          {"nome": "Poupança da Família", "sub": "Family Savings", "cor": "#4BE3A4", "texto": "Dividida entre Jason e Lucia. Não dá para sacar, mas também não se perde. É ela que sobe o limite."},
+          {"nome": "Dinheiro no bolso", "cor": "#FF6B6B", "texto": "Some se você morrer ou for preso.", "nota": "Guarde no esconderijo."}
+        ]},
+        {"tipo": "degraus", "titulo": "Como o limite sobe", "itens": [
+          {"valor": "$15 mil", "txt": "Limite inicial"},
+          {"valor": "$100 mil", "txt": "Com $10.000 guardados na Poupança"},
+          {"valor": "$500 mil", "txt": "Com $100.000 guardados na Poupança"},
+          {"valor": "$2 milhões", "txt": "Conta Premium, automática no capítulo 4"}
+        ], "nota": "A história também dá melhorias nos capítulos 2, 3 e 4."},
+        {"tipo": "dicas", "itens": [
+          {"t": "Pagamento sumiu?", "txt": "Veja se a conta corrente bateu no limite: ele está pendente."},
+          {"t": "Não guarde demais", "txt": "Deixe um saldo para usar no dia a dia."},
+          {"t": "Onde fica", "txt": "[CIMA] abre o celular; o BuckMe é o B roxo."}
+        ]}
+      ]
+    },
+    {
+      "id": "waink",
+      "aba": "WAiNK",
+      "titulo": "WAiNK",
+      "resumo": "O scanner do celular para veículos e pontos do mapa.",
+      "blocos": [
+        {"tipo": "linhas", "itens": [
+          {"nome": "Abrir", "texto": "Segure [CIMA] para ir direto ao scanner. Um toque rápido abre o celular, onde o WAiNK é o ícone colorido de estrela."},
+          {"nome": "Escanear", "texto": "Mire num veículo ou local marcado e segure [RB]. O cartão aparece embaixo à direita; aperte [RS] para trocar de página."},
+          {"nome": "Quando você ganha", "texto": "Na missão do capítulo 1 \"Unwanted Attention\" (o Cal instala, no pátio da polícia de Hamlet). A Lucia usa na missão \"Moses\", do capítulo 2."}
+        ]},
+        {"tipo": "titulo", "txt": "O cartão do veículo", "sub": "Três páginas."},
+        {"tipo": "linhas", "itens": [
+          {"nome": "1. Proteção e preço", "texto": "Acesso (aberto, trancado, Key Cloner), alarme, rastreador, valor de venda e custo para registrar.", "nota": "Escaneie antes: o Moses não aceita carro rastreado no capítulo 2."},
+          {"nome": "2. Mais detalhes", "texto": "Tipo, época, lugares, espaço (caçamba ou porta-malas), estado da lataria e especialista (tipo de oficina)."},
+          {"nome": "3. Números do veículo", "texto": "Velocidade, aceleração, dirigibilidade no asfalto e fora de estrada, e resistência, cada um de 0 a 10.", "nota": "Só depois de entrar e ligar o motor."}
+        ]},
+        {"tipo": "titulo", "txt": "Locais e coleções"},
+        {"tipo": "linhas", "itens": [
+          {"nome": "Locais do WAiNK", "texto": "Pontos turísticos, curiosidades, esculturas, pichações No Flusher e afins. Perto de um, o controle vibra e toca um som; procure a estrela. Contagem confirmada: 31 pontos turísticos, 35 curiosidades, 23 esculturas."},
+          {"nome": "\"You WAiNKer!\"", "texto": "Quaisquer 100 locais liberam a conquista e contam para os 100%. Acompanhe em Progresso > Coleções > WAiNK Locations.", "nota": "A Ahol Street Art usa o mesmo app, mas é outra coleção."},
+          {"nome": "Catálogo de veículos", "texto": "277 modelos, e 200 contam para os 100%. Barcos e aeronaves contam; escaneamentos da história também."},
+          {"nome": "Wyman Wrecks", "sub": "Ultimate Edition", "texto": "Coleção de carros clássicos do Wyman: $50 por escaneamento."}
+        ]},
+        {"tipo": "titulo", "txt": "Ferramentas ligadas"},
+        {"tipo": "linhas", "itens": [
+          {"nome": "Key Cloner", "sub": "Capítulo 3, Randy", "texto": "Da missão \"Clonin' Keys, Makin' GS\". O gta.guide chama o arquivo de key_cloner_v1.6.9."},
+          {"nome": "Wish List do Randy", "texto": "Não é uma aba do WAiNK: aparece no mapa em Roubos / Encomendas de veículo."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Escaneie antes de roubar", "txt": "Assim você já sabe rastreador, alarme e preço."},
+          {"t": "Já está dirigindo?", "txt": "[BAIXO] mostra os números e o rastreador do veículo na tela."},
+          {"t": "Valores de venda", "txt": "Aparecem a partir da missão do Moses, no capítulo 2."}
+        ]}
+      ]
+    },
+    {
+      "id": "carros",
+      "aba": "Carros rápidos",
+      "titulo": "Carros mais rápidos",
+      "resumo": "Velocidade de fábrica no cartão do jogo, de 0 a 10.",
+      "blocos": [
+        {"tipo": "ranking", "itens": [
+          {"nome": "Truffade Thrax", "valor": 8.7, "sub": "Supercarro", "nota": "Fonte: GameSpot e Gameta; a lista da Leonipedia de 21/11 deixa ele de fora."},
+          {"nome": "Progen Emerus", "valor": 8.3, "sub": "Supercarro, por código", "nota": "Depois da história: complete todos os desafios de veículo e chame ele pelo menu de códigos. A sequência não foi publicada, e usar código desliga o salvamento e as conquistas."},
+          {"nome": "Pegassi Vitello", "valor": 8.2, "sub": "Supercarro", "nota": "Aceleração 8.4."},
+          {"nome": "Bravado Gauntlet Hellfire", "valor": 7.8, "sub": "Muscle", "nota": "O muscle mais rápido; empata com o supercarro Piccia Furia."},
+          {"nome": "Pfister Comet S2", "valor": 7.7, "sub": "Esportivo", "nota": "O esportivo mais rápido."}
+        ]},
+        {"tipo": "titulo", "txt": "O mais rápido de cada tipo"},
+        {"tipo": "tabela", "itens": [
+          ["Supercarros", "Thrax 8.7 / Emerus 8.3"],
+          ["Muscle", "Gauntlet Hellfire 7.8"],
+          ["Esportivos", "Comet S2 7.7"],
+          ["Motos", "Nagasaki SFB 1000 7.1"],
+          ["Sedãs", "Albany V-STR 7.0"],
+          ["Cupês", "Benefactor Shutzen 6.7"],
+          ["SUVs", "Pegassi Toros 6.0"],
+          ["Fora de estrada", "'67 Dominator Buggy e '73 BF Injection 5.0"],
+          ["Picapes", "Karin Contender 4.5 (Vapid Riata 4.4, Bravado Bison 4.2)"],
+          ["Vans", "Karin Vivanite e Bravado Sojourn 4.5"]
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Espaço também conta", "txt": "A caçamba da Bison leva 6 itens; o porta-malas de um Dominator, só 2."},
+          {"t": "Como ver os números", "txt": "Pelo WAiNK ou ligando o motor."},
+          {"t": "Oficina sobe a nota", "txt": "Com modificações, a velocidade passa de 9.0."}
+        ]}
+      ]
+    },
+    {
+      "id": "armas",
+      "aba": "Armas",
+      "titulo": "Melhores armas",
+      "resumo": "A melhor de cada tipo, pelos números sem modificação. Alternativas e discordâncias estão avisadas.",
+      "blocos": [
+        {"tipo": "nota-barras", "txt": "Os números aparecem nesta ordem: Dano / Precisão / Manejo / Alcance, de 0 a 10."},
+        {"tipo": "linhas", "itens": [
+          {"nome": "Kalinga .50", "sub": "Pistola · $3.100", "cor": "#FF3E8A", "barras": [7.0, 4.0, 7.8, 5.0], "texto": "A Fairview Kalinga .50 lidera o dano das pistolas, com 7 balas de .50 Magnum. Só nas lojas Ammu-Nation ampliadas. A GameSpot prefere a Girardi ES9 ($700, lojas comuns): precisão 5.2, manejo 8.4 e pente de 15.", "nota": "A ES9 é a fácil para o dia a dia."},
+          {"nome": "Akulus", "sub": "Revólver · $3.000", "cor": "#FFB547", "texto": "O Scorpio Akulus empata com a Kalinga em dano 7.0, com alcance 6.0, manejo 7.6, precisão 4.2 e 6 balas. Lojas ampliadas ou de caça. O par Hawk & Little Morgan, da Ultimate Edition, é um .44 \"dele e dela\": dano 5.7, a melhor precisão de revólver (5.4), alcance 6.0. Não é o que bate mais forte.", "nota": "Ultimate: revólveres Morgan e ES9 (Jason) e K17 (Lucia) gravadas; só visual, não melhora números."},
+          {"nome": "VF5", "sub": "Submetralhadora · $2.325", "cor": "#6FB7FF", "texto": "Toda submetralhadora tem dano 4.2, então o que decide é precisão e pente. A Vom Feuer VF5 tem a melhor precisão (5.0), 30 balas, manejo 6.7 e alcance 4.5. Lojas comuns. A Zhang Wu Type 9 tem o melhor manejo (7.8), mas só 10 balas.", "nota": "Mesmo dano em todas."},
+          {"nome": "Drifter", "sub": "Escopeta · $1.150", "cor": "#FFD34D", "texto": "Quatro espingardas de cano basculante dividem o maior dano (8.0), mas só levam 2 cartuchos: Shrewsbury Drifter ($1.150, lojas comuns ou de caça), Shrewsbury Hobo, e Longshot e Shortstraw da Mason & Keen. Para briga mais longa, a Goodwin Comshot 12 tem 7.7 com 7 cartuchos ($3.825, ampliada). A GameSpot prefere a Girardi AZ1200 (7.4, melhor precisão de escopeta, 4.5, semiautomática, $2.300). Um guia de roubos prefere a Super400 (7.4, 7 cartuchos, $2.825).", "nota": "Discordam: dano contra tiros seguidos."},
+          {"nome": "ADB FRA", "sub": "Fuzil de assalto · $2.900", "cor": "#4BE3A4", "barras": [5.8, 5.0, 5.3, 6.9], "texto": "O ADB FRA (também escrito AdB) lidera os automáticos, com 20 balas, em lojas comuns. A GameSpot prefere o Duke 556, mais fácil de controlar: dano 5.0, 30 balas, $1.450, lojas comuns ou de caça.", "nota": "FRA pelos números, Duke 556 pelo controle."},
+          {"nome": "M306 TMR", "sub": "Fuzil tático · $2.550", "cor": "#B57BFF", "barras": [6.2, 7.8, 5.5, 7.5], "texto": "O Hillinger M306 TMR lidera esta classe, com 20 balas, só em lojas ampliadas. A Dexerto diz que ele libera depois de tirar ouro em todos os estandes de tiro (só uma fonte). O Wortham W-14 é a opção mais barata de loja comum: dano 5.8, precisão 7.5, $1.400.", "nota": "Tático é uma classe própria, não é fuzil de assalto."},
+          {"nome": "FF-50", "sub": "Sniper · $3.975", "cor": "#FF6B6B", "texto": "O Fairview FF-50 lidera o dano de sniper (8.5), com precisão 7.0, alcance 7.5 e 5 balas. Só em lojas ampliadas. O FF-SR troca um pouco de dano (8.0) por 10 balas e precisão 7.5, a $2.950, também ampliada. A Beebom diz que um FF-SR modificado é a melhor arma do jogo. O Fortune & Son Laird 350 é o de precisão e o barato (precisão 8.0, $950).", "nota": "FF-50 pelo dano, FF-SR pela munição."},
+          {"nome": "LMG 6", "sub": "Metralhadora · sem preço de loja ainda", "cor": "#FF6FA8", "barras": [6.8, 2.8, 2.8, 6.5], "texto": "A Goodwin LMG 6 lidera as duas metralhadoras, com 100 balas, só em loja ampliada. Os guias ainda não publicaram o preço. A ADB M350 é a que dá para comprar: dano 6.5, 100 balas, $10.000, ampliada. As duas são difíceis de controlar.", "nota": "A M350 tem preço confirmado."},
+          {"nome": "H-AT", "sub": "Lançador · $16.000 (informado)", "cor": "#6FB7FF", "texto": "O Hauners H-AT tem o maior dano de todas as armas (9.6), alcance 8.0 e um foguete só. A Dexerto diz $16.000 em loja ampliada; trate como informado. O Deever Tech GLR40 empata com os outros lançadores em 9.2, mas leva 6 tiros; a Dexerto diz $15.500, e o GTABase diz que também dá para achar de graça. O Hillinger Boomer custa $12.000 por uma granada de 9.2.", "nota": "Preço do H-AT vem de uma fonte só."},
+          {"nome": "Survival Knife", "sub": "Corpo a corpo · $315", "cor": "#FFD34D", "texto": "Armas brancas não têm barras na loja e nenhum guia ranqueia. A Ammu-Nation vende nove. A Survival Knife é a melhor faca de loja, a $315. A Combat Knife custa $285 e o soco-inglês, $95. A Big Shots, em Hamlet, tem as nove. Coisas achadas na rua, como tacos, muitas vezes não dá para guardar.", "nota": "Sem ranking oficial."},
+          {"nome": "Sticky Bomb", "sub": "Arremessável · $185", "cor": "#4BE3A4", "texto": "O progresso conta quatro explosivos. Bomba adesiva custa $185 na Ammu-Nation e abre alguns cofres ou portas trancadas quando você não tem o código; mas chama atenção de quem está perto. Granada custa $140. Molotov e granada de luz não têm preço de loja: pegue pelo mundo. O Explosives Pack custa $1.500 e recarrega granadas e bombas adesivas.", "nota": "Compre adesivas antes de um roubo."}
+        ]},
+        {"tipo": "duas", "itens": [
+          {"t": "Onde comprar", "cor": "#FFD34D", "txt": "Armas mais avançadas costumam estar só nas Ammu-Nation ampliadas: Big Shots, Iron & Oak, Woodhatch, Prestige Firearms e Black Eagle. Lojas comuns, como a Chuck's Tackle & Shot em Key Lento, têm a lista do começo. O estoque pode aumentar depois que você compra mais armas."},
+          {"t": "O que você carrega", "cor": "#6FB7FF", "txt": "Duas armas curtas e duas longas. O resto fica num armário da Ammu-Nation ou no porta-malas. Acessórios mudam as barras. Colete custa $250 em todas as lojas conferidas."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Variantes únicas", "txt": "Arma com nome amarelo mantém o dano da original, mas pode mudar as outras barras e o pente. A Kalinga .50 do Gil é exclusiva da história e não vende em loja."},
+          {"t": "\"Melhor\" depende da fonte", "txt": "Aqui vem primeiro a líder em dano ou números sem modificação, depois a alternativa da GameSpot ou de pente maior."}
+        ]}
+      ]
+    },
+    {
+      "id": "assaltos",
+      "aba": "Assalto a loja",
+      "titulo": "Assalto a loja",
+      "resumo": "Passo a passo para roubar loja sem sujar o perfil.",
+      "blocos": [
+        {"tipo": "passos", "itens": [
+          {"nome": "Estude a loja", "texto": "Veja o nível de segurança no mapa; se for alto, escolha uma mais fácil."},
+          {"nome": "Máscara antes de entrar", "texto": "Coloque a máscara antes; troque de roupa depois."},
+          {"nome": "Use o Foco", "texto": "Aperte [LS] + [RS] para ver câmeras, o painel do alarme e funcionários nos fundos."},
+          {"nome": "Renda o caixa", "texto": "Mire com [LT] e aperte [X]."},
+          {"nome": "Sem sujeira", "texto": "Ameaçar pode, violência não: não atire no caixa nem em civis."},
+          {"nome": "Desligue o alarme", "texto": "Desative o painel branco do alarme antes de ir para os fundos."},
+          {"nome": "Apague as câmeras", "texto": "Ache o gravador; a gravação fica guardada na loja."},
+          {"nome": "Abra o cofre", "texto": "Pegue o código com funcionários, bilhetes ou seguranças (pergunte, procure, ameace). O código muda a cada visita.", "extra": {"nome": "Snap Gun", "sub": "Capítulo 3, com o Yasmani", "texto": "Abre porta trancada sem barulho. Aperte [Y], ache o ponto rosa com o analógico esquerdo e segure [RT] até encher. Não desliga o alarme."}},
+          {"nome": "Saia limpo", "texto": "Leve o parceiro nas lojas maiores, tenha um carro de fuga e pegue todos os maços de dinheiro: só abrir o caixa não basta."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Menu do Parceiro", "txt": "Segure [DIREITA]."},
+          {"t": "Troque de roupa depois", "txt": "Ajuda a limpar o calor."},
+          {"t": "Snap Gun é melhor que chute", "txt": "Mas o alarme é com você."}
+        ]}
+      ]
+    },
+    {
+      "id": "naoletal",
+      "aba": "Sem matar",
+      "titulo": "Sem matar",
+      "resumo": "Para ficar Profissional: derrube, não mate.",
+      "blocos": [
+        {"tipo": "linhas", "itens": [
+          {"nome": "Marcador do tiro", "sub": "Branco, amarelo, vermelho", "cor": "#FFD34D", "texto": "A mira diz o que o tiro fez. **Branco:** acertou e ele segue lutando. **Amarelo:** derrubado, no chão, vivo. **Vermelho:** morto ou ferido de morte. IGN e The Games Wiki dizem que quem cai sem morrer fica no chão. Não atire de novo: isso transforma o amarelo em morte.", "nota": "Olhe a cor antes de atirar de novo."},
+          {"nome": "Foco de combate", "sub": "Mire e aperte os dois analógicos", "cor": "#B57BFF", "texto": "Mirando, aperte [LS] e [RS] juntos para entrar no Foco. O tempo desacelera e a barra de Foco vai gastando. Pontos amarelos são braços e pernas: tiro na mão faz largar a arma, tiro na perna derruba. Pontos vermelhos são cabeça e coração, para matar. Dá para atirar nos membros sem Foco, mas os destaques ajudam. Libera no capítulo 1.", "nota": "Amarelo para derrubar. Vermelho para matar."},
+          {"nome": "Coil Shocker", "sub": "Arma de choque, vaga de pistola", "cor": "#6FB7FF", "texto": "O GTABase lista o Coil Shocker como arma de choque da Coil: dispara um projétil que atordoa, em vez de matar. A PC Gamer diz que ela pode aparecer na caixa da caçamba de picapes da polícia, como a Bravado Bison. Suba na caçamba e abra a caixa; essas picapes não têm alarme. Não é garantido. Outros lugares, como uma picape num escritório de banco e uma atividade de veículo atolado, por enquanto são só relatos.", "nota": "Relato: o conteúdo muda de picape para picape."},
+          {"nome": "Agarrão furtivo", "sub": "Nocaute silencioso", "cor": "#4BE3A4", "texto": "Agache com [B], chegue por trás, segure [RT] para agarrar e aperte [X] para o nocaute. Guarde a arma antes para não atirar sem querer. Esconda os corpos: aliados que veem alguém no chão ficam mais atentos. Fora de combate, o Foco contorna inimigos e mostra as ondas de barulho. A IGN também lembra de telhados e alçapões no teto em muitos complexos.", "nota": "Confira o marcador: um guia diz que nem todo agarrão é sem matar."},
+          {"nome": "Mão e corpo a corpo", "sub": "Tapa ou empurrão, não martelo", "cor": "#FFB547", "texto": "Fora de combate, [X] dá um tapa ou empurrão, que os guias tratam como sem matar. Repita, ou bata em alguém já irritado, e vira soco e chute. Não há escopeta de bala de borracha nas listas atuais. Martelo, taco de beisebol e soco-inglês são armas brancas comuns; não consta que sejam sem matar. O cassetete ($160 na Ammu-Nation) também está listado só como arma branca; dizer que ele não mata não foi confirmado.", "nota": "Use o agarrão ou o tapa, não o martelo."},
+          {"nome": "Roubar, estapear, distrair", "sub": "Pule o tiroteio", "cor": "#FF3E8A", "texto": "Para um roubo Profissional, a PowerPyx diz: ameace os funcionários sem machucar ninguém, destrua as fitas, desligue o alarme e saia antes da polícia. Se uma testemunha sacar o celular, chegue perto e aperte [X] para derrubar o telefone com um tapa; com várias testemunhas, alguém costuma conseguir ligar. A IGN diz que dá para assustar cão de ataque atirando no chão perto dele, ou distrair cão de guarda com petisco de pet do mercado ou da loja de conveniência. Acalmar, quando o botão aparecer, também encerra um confronto.", "nota": "Com muita gente, alguém ainda consegue ligar."}
+        ]},
+        {"tipo": "duas", "itens": [
+          {"t": "Puxa para Profissional", "cor": "#FFD34D", "txt": "Derrubar sem matar, furtividade, corpo a corpo silencioso e fugas limpas, segundo IGN, PowerPyx e Insider Gaming. Como Profissional ou Calejado, nocautes sem matar recarregam o Foco. Cada personagem tem o próprio perfil."},
+          {"t": "Puxa para Violento ou Psicopata", "cor": "#FF6B6B", "txt": "Matar com tiro na cabeça puxa para Violento. Matar policial, civil ou animal puxa para Psicopata. Explosivos costumam levar a Violento e são difíceis de controlar. Atropelar pedestres pode levar a Violento ou Psicopata. Como Violento ou Psicopata, só tiro na cabeça recarrega o Foco. Psicopata não pode mais se render."}
+        ]},
+        {"tipo": "dicas", "itens": [
+          {"t": "Calejado tem polêmica", "txt": "IGN e PowerPyx descrevem como força que ainda poupa vidas (tiro nos membros). Insider Gaming, Gameblog e PC Gamer descrevem como matar inimigos, mas não inocentes."},
+          {"t": "Zerar sem matar ninguém não dá", "txt": "Segundo a IGN. Mas dá para matar o mínimo e ainda ficar Profissional. Deixe quem caiu em paz e evite explosivos e atropelar."},
+          {"t": "O calor sobe menos", "txt": "A IGN diz que tiro em pneu e em partes que não matam sobe a procura mais devagar que tiro na cabeça ou no peito de um policial. Matar policial pode pular para três estrelas. Com uma estrela, a polícia costuma usar taser se você estiver desarmado."}
+        ]}
+      ]
+    }
+  ]
+}

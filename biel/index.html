@@ -28,6 +28,9 @@
     <input id="busca" type="search" placeholder="Buscar local, categoria ou bairro" autocomplete="off" aria-label="Buscar">
     <button id="limpar-busca" class="btn-ic" hidden aria-label="Limpar busca"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   </div>
+  <button id="btn-guia" class="btn-flut btn-guia" aria-label="Abrir o guia do jogo" title="Guia">
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5Z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5Z"/></svg>
+  </button>
   <button id="btn-dia" class="btn-flut" aria-label="Trocar para mapa noturno" title="Dia / noite">
     <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
   </button>
@@ -101,9 +104,21 @@
   <button class="btn-ic visor-fechar" id="visor-fechar" aria-label="Fechar foto"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
 </div>
 
+<section id="guia" class="guia" hidden role="dialog" aria-modal="true" aria-labelledby="guia-nome">
+  <div class="guia-caixa">
+    <header class="guia-topo">
+      <h2 id="guia-nome" class="guia-nome">Guia de Leonida</h2>
+      <button class="btn-ic" id="guia-fechar" aria-label="Fechar o guia"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <nav class="guia-abas" id="guia-abas" role="tablist" aria-label="Temas do guia"></nav>
+    <div class="guia-corpo" id="guia-corpo" role="tabpanel" tabindex="0"></div>
+  </div>
+</section>
+
 <div id="aviso" class="aviso" role="status" hidden></div>
 
 <script src="vendor/leaflet.js"></script>
 <script src="app.js"></script>
+<script src="guia.js"></script>
 </body>
 </html>
