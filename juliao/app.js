@@ -80,7 +80,7 @@
     D.grupos.forEach((g) => grupoPorId.set(g.id, g));
     document.documentElement.style.setProperty('--ic-cols', D.icones.colunas);
     D.categorias.forEach((c) => { catPorId.set(c.id, c); locaisPorCat.set(c.id, []); });
-    D.locais.forEach((l) => { porId.set(l.id, l); locaisPorCat.get(l.c).push(l); l._busca = norm(l.t); });
+    D.locais.forEach((l) => { porId.set(l.id, l); locaisPorCat.get(l.c).push(l); l._busca = norm(l.t + (l.tg ? ' ' + l.tg : '')); });
     const salvas = ler(CHAVE_OCULTAS, null);
     ocultas = new Set(salvas || D.categorias.filter((c) => OCULTAS_PADRAO.includes(c.en)).map((c) => c.id));
     // limpa ids que não existem mais
@@ -270,7 +270,7 @@
     $('#cartao-cor').outerHTML = ico(c).replace('class="ico"', 'class="ico" id="cartao-cor"');
     $('#cartao-cat').textContent = `${c.nome} · ${g.nome}`;
     $('#cartao-titulo').textContent = l.t;
-    const reg = l.r ? D.regioes[l.r] : '';
+    const reg = [l.r ? D.regioes[l.r] : '', l.tg ? 'Especialidade: ' + l.tg : ''].filter(Boolean).join(' · ');
     $('#cartao-regiao').textContent = reg;
     $('#cartao-regiao').hidden = !reg;
     pintarFotos(l);
@@ -373,7 +373,7 @@
     } else {
       lista.innerHTML = achados.slice(0, 40).map(({ l }) => {
         const c = catPorId.get(l.c);
-        const reg = l.r ? ' · ' + esc(D.regioes[l.r]) : '';
+        const reg = (l.tg ? ' · ' + esc(l.tg) : '') + (l.r ? ' · ' + esc(D.regioes[l.r]) : '');
         return `<li><button data-ir="${l.id}">${ico(c)}
           <span class="res-txt"><span class="res-t">${esc(l.t)}</span><span class="res-s">${esc(c.nome)}${reg}</span></span>
           ${marcavel(l) && feitos.has(l.id) ? '<span class="res-feito">feito</span>' : ''}</button></li>`;
