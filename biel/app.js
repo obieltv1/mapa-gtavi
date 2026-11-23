@@ -62,7 +62,7 @@
   }
 
   function estilo(l) {
-    return { radius: raio(), ic: catPorId.get(l.c).ic, feito: feitos.has(l.id), weight: 0 };
+    return { radius: raio(), ic: catPorId.get(l.c).ic, feito: feitos.has(l.id), weight: 0, bubblingMouseEvents: false };
   }
 
   // ícone da lista (folha icones/lista.png)
