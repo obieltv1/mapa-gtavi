@@ -78,9 +78,16 @@
   </div>
   <h2 id="cartao-titulo"></h2>
   <p id="cartao-regiao" class="cartao-regiao"></p>
+  <div id="cartao-fotos" class="cartao-fotos" hidden></div>
   <div id="cartao-desc" class="cartao-desc"></div>
   <button id="btn-feito" class="btn btn-feito">Marcar como feito</button>
 </article>
+
+<div id="visor" class="visor" hidden role="dialog" aria-modal="true" aria-label="Fotos do local">
+  <div id="visor-fotos" class="visor-fotos"></div>
+  <span id="visor-conta" class="visor-conta"></span>
+  <button class="btn-ic visor-fechar" id="visor-fechar" aria-label="Fechar foto"><svg class="ic" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+</div>
 
 <div id="aviso" class="aviso" role="status" hidden></div>
 

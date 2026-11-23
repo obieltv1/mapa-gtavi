@@ -140,6 +140,18 @@ button{cursor:pointer;touch-action:manipulation}
 .cartao-desc a{color:var(--rosa);text-decoration:underline;text-underline-offset:2px}
 .spoiler{background:var(--linha);color:transparent;border-radius:4px;padding:0 4px;cursor:pointer;border:0;font:inherit;text-align:left}
 .spoiler.visto{background:none;color:inherit;padding:0;cursor:auto}
+/* fotos do local (baixadas do MapGenie e guardadas no site) */
+.cartao-fotos{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px 14px;padding:0 18px;scrollbar-width:none}
+.cartao-fotos::-webkit-scrollbar{display:none}
+.cartao-fotos button{flex:0 0 auto;width:calc(100% - 36px);max-width:340px;aspect-ratio:16/9;padding:0;border:0;border-radius:12px;overflow:hidden;background:var(--superficie);scroll-snap-align:start;cursor:zoom-in}
+.cartao-fotos button:only-child{width:100%;max-width:none}
+.cartao-fotos img{width:100%;height:100%;object-fit:cover;display:block}
+.visor{position:fixed;inset:0;z-index:1400;background:rgba(3,5,15,.96)}
+.visor-fotos{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.visor-fotos::-webkit-scrollbar{display:none}
+.visor-fotos img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;scroll-snap-align:center}
+.visor-fechar{position:absolute;top:calc(12px + env(safe-area-inset-top));right:12px;background:var(--superficie)}
+.visor-conta{position:absolute;left:50%;bottom:calc(20px + var(--base-segura));transform:translateX(-50%);color:var(--texto-2);font-size:14px;font-variant-numeric:tabular-nums}
 .btn-feito{width:100%;margin-top:14px}
 .btn-feito.feito{background:var(--superficie);border:1px solid var(--verde);color:var(--verde)}
 

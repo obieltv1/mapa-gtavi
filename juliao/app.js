@@ -23,6 +23,7 @@
   const locaisPorCat = new Map();
   let fechadas = new Set(ler(CHAVE_FECHADAS, []));
   const conta = (c) => secaoPorId.get(grupoPorId.get(c.g).s).conta; // categoria que vale progresso
+  const marcavel = (l) => conta(catPorId.get(l.c)); // só Coleções e Atividades dão para marcar (como no MapGenie)
   let feitos = new Set(ler(CHAVE_FEITOS, []));
   let ocultas = null; // Set de ids de categoria
   let esconderFeitos = ler(CHAVE_ESC_FEITOS, false);
@@ -62,7 +63,7 @@
   }
 
   function estilo(l) {
-    return { radius: raio(), ic: catPorId.get(l.c).ic, feito: feitos.has(l.id), weight: 0, bubblingMouseEvents: false };
+    return { radius: raio(), ic: catPorId.get(l.c).ic, feito: marcavel(l) && feitos.has(l.id), weight: 0, bubblingMouseEvents: false };
   }
 
   // ícone da lista (folha icones/lista.png)
@@ -83,7 +84,7 @@
     const salvas = ler(CHAVE_OCULTAS, null);
     ocultas = new Set(salvas || D.categorias.filter((c) => OCULTAS_PADRAO.includes(c.en)).map((c) => c.id));
     // limpa ids que não existem mais
-    feitos = new Set([...feitos].filter((id) => porId.has(id)));
+    feitos = new Set([...feitos].filter((id) => porId.has(id) && marcavel(porId.get(id))));
 
     montarMapa();
     montarFiltros();
@@ -272,7 +273,9 @@
     const reg = l.r ? D.regioes[l.r] : '';
     $('#cartao-regiao').textContent = reg;
     $('#cartao-regiao').hidden = !reg;
+    pintarFotos(l);
     $('#cartao-desc').innerHTML = descricao(l.d) || (c.info ? `<p>${esc(c.info)}</p>` : '');
+    $('#btn-feito').hidden = !marcavel(l);
     pintarBotaoFeito();
     cartao.hidden = false;
     cartao.scrollTop = 0;
@@ -281,6 +284,33 @@
     if (history.replaceState) history.replaceState(null, '', '#' + l.id);
     if (centralizar) irPara(l);
     else afastarDoCartao(l);
+  }
+
+  // fotos: fotos/<id>-<n>.webp na raiz do site, uma pasta só para os dois mapas
+  const fotosDe = (l) => Array.from({ length: l.f || 0 }, (_, i) => `../fotos/${l.id}-${i + 1}.webp`);
+
+  function pintarFotos(l) {
+    const box = $('#cartao-fotos'), fs = fotosDe(l);
+    box.hidden = !fs.length;
+    box.scrollLeft = 0;
+    box.innerHTML = fs.map((src, i) => `<button data-foto="${i}" aria-label="Ver foto ${i + 1} de ${fs.length}">
+      <img src="${src}" alt="" loading="lazy" decoding="async" width="960" height="540"></button>`).join('');
+  }
+
+  function abrirVisor(i) {
+    const fs = fotosDe(atual), v = $('#visor'), box = $('#visor-fotos');
+    box.innerHTML = fs.map((src) => `<img src="${src}" alt="Foto de ${esc(atual.t)}">`).join('');
+    v.hidden = false;
+    const conta = () => { $('#visor-conta').textContent = fs.length > 1 ? `${Math.round(box.scrollLeft / box.clientWidth) + 1} de ${fs.length}` : ''; };
+    box.scrollLeft = i * box.clientWidth;
+    box.onscroll = conta;
+    conta();
+    $('#visor-fechar').focus();
+  }
+
+  function fecharVisor() {
+    $('#visor').hidden = true;
+    $('#visor-fotos').innerHTML = '';
   }
 
   function irPara(l) {
@@ -313,6 +343,7 @@
   }
 
   function alternarFeito(l) {
+    if (!marcavel(l)) return;
     if (feitos.has(l.id)) feitos.delete(l.id); else feitos.add(l.id);
     gravar(CHAVE_FEITOS, [...feitos]);
     l._m.setStyle(estilo(l));
@@ -345,7 +376,7 @@
         const reg = l.r ? ' · ' + esc(D.regioes[l.r]) : '';
         return `<li><button data-ir="${l.id}">${ico(c)}
           <span class="res-txt"><span class="res-t">${esc(l.t)}</span><span class="res-s">${esc(c.nome)}${reg}</span></span>
-          ${feitos.has(l.id) ? '<span class="res-feito">feito</span>' : ''}</button></li>`;
+          ${marcavel(l) && feitos.has(l.id) ? '<span class="res-feito">feito</span>' : ''}</button></li>`;
       }).join('') + (achados.length > 40 ? `<li class="res-vazio">Mostrando 40 de ${achados.length > 400 ? 'mais de 400' : achados.length}. Escreva mais para filtrar.</li>` : '');
     }
     lista.hidden = false;
@@ -384,7 +415,7 @@
       const j = JSON.parse(await arquivo.text());
       const lista = Array.isArray(j) ? j : j.feitos;
       if (!Array.isArray(lista)) throw new Error();
-      const novos = lista.map(Number).filter((id) => porId.has(id));
+      const novos = lista.map(Number).filter((id) => porId.has(id) && marcavel(porId.get(id)));
       if (!confirm(`Trocar o progresso deste aparelho (${feitos.size} feitos) pelo do backup (${novos.length} feitos)?`)) return;
       feitos = new Set(novos);
       gravar(CHAVE_FEITOS, [...feitos]);
@@ -419,6 +450,10 @@
 
   // ---------- eventos ----------
   function ligarEventos() {
+    $('#cartao-fotos').addEventListener('click', (e) => { const b = e.target.closest('[data-foto]'); if (b) abrirVisor(+b.dataset.foto); });
+    $('#visor-fechar').addEventListener('click', fecharVisor);
+    $('#visor-fotos').addEventListener('click', (e) => { if (e.target === e.currentTarget) fecharVisor(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !$('#visor').hidden) { e.stopImmediatePropagation(); fecharVisor(); } }, true);
     $('#btn-feito').addEventListener('click', () => { if (atual) { alternarFeito(atual); pintarBotaoFeito(); } });
     $('#fechar-cartao').addEventListener('click', fecharCartao);
     $('#cartao-desc').addEventListener('click', (e) => {
