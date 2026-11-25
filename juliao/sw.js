@@ -1,7 +1,7 @@
 // Guarda o app para abrir sem internet; os pedaços do mapa vão ficando guardados conforme você navega.
 // o nome do cache leva a pasta, para o mapa do Biel e o do pai não apagarem o cache um do outro
 const BASE = new URL('./', self.location).pathname;
-const VERSAO = 'leonida-v10' + BASE;
+const VERSAO = 'leonida-v11' + BASE;
 const APP = ['./', 'index.html', 'estilo.css', 'app.js', 'guia.js', 'guia.json', 'dados.json', 'manifest.webmanifest',
   'vendor/leaflet.js', 'vendor/leaflet.css', 'icones/icone-192.png', 'icones/icone-512.png', 'icones/icone-180.png', 'icones/lista.png', 'icones/mapa.png'];
 // ícones do jogo usados no guia

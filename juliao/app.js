@@ -96,7 +96,7 @@
     pintarSo();
     atualizarProgresso();
     ligarEventos();
-    abrirDoHash();
+    if (!importarDeTexto(location.hash)) abrirDoHash();
   }
 
   function montarMapa() {
@@ -535,6 +535,47 @@
     }
   }
 
+  // link do progresso: ids em ordem, guardando só a diferença para o anterior, em base 36
+  function codificar(ids) {
+    let ant = 0;
+    return [...ids].sort((a, b) => a - b).map((id) => { const d = id - ant; ant = id; return d.toString(36); }).join('.');
+  }
+  function linkDoProgresso() {
+    return location.origin + location.pathname + '#p=' + codificar(feitos);
+  }
+  // aceita o link inteiro ou só o pedaço "#p=..."; soma ao que já está marcado, não apaga nada
+  function importarDeTexto(txt) {
+    const m = /[#&]p=([0-9a-z.]+)/i.exec(txt || '');
+    if (!m) return false;
+    let ant = 0;
+    const ids = m[1].split('.').filter(Boolean).map((s) => (ant += parseInt(s, 36)))
+      .filter((id) => porId.has(id) && marcavel(porId.get(id)));
+    if (location.hash.includes('p=')) history.replaceState(null, '', location.pathname);
+    const antes = feitos.size;
+    ids.forEach((id) => feitos.add(id));
+    gravar(CHAVE_FEITOS, [...feitos]);
+    aplicarTudo();
+    const novos = feitos.size - antes;
+    aviso(novos ? `Progresso importado: ${novos} marcaç${novos > 1 ? 'ões novas' : 'ão nova'}.` : 'Esse progresso já estava todo marcado aqui.');
+    return true;
+  }
+  async function enviarLink() {
+    const url = linkDoProgresso();
+    try {
+      if (navigator.share) { await navigator.share({ title: 'Meu progresso no mapa', url }); return; }
+      await navigator.clipboard.writeText(url);
+      aviso('Link copiado. Abra ele no outro aparelho.');
+    } catch (e) {
+      if (e && e.name === 'AbortError') return;
+      prompt('Copie este link e abra no outro aparelho:', url);
+    }
+  }
+  function colarLink() {
+    const txt = prompt('Cole aqui o link do progresso:');
+    if (txt === null) return;
+    if (!importarDeTexto(txt)) aviso('Esse texto não é um link de progresso do mapa.');
+  }
+
   function aplicarTudo() {
     D.locais.forEach((l) => l._m.setStyle(estilo(l)));
     desenharPontos();
@@ -656,6 +697,8 @@
     });
 
     $('#baixar-backup').addEventListener('click', baixarBackup);
+    $('#enviar-link').addEventListener('click', enviarLink);
+    $('#colar-link').addEventListener('click', colarLink);
     $('#arquivo-backup').addEventListener('change', (e) => {
       const f = e.target.files[0];
       if (f) restaurarBackup(f);

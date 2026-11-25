@@ -73,9 +73,11 @@
       <div id="lista-progresso"></div>
     </div>
     <div class="painel" data-painel="backup" hidden>
-      <p class="texto">Suas marcações ficam salvas só neste aparelho. Baixe um backup de vez em quando, e use ele para passar o progresso para outro celular ou PC.</p>
+      <p class="texto">Suas marcações ficam salvas só neste aparelho. Para levar para outro celular ou PC, envie o link do progresso e abra ele lá (ou cole em "Colar link"). O que já estiver marcado no outro aparelho continua.</p>
       <div class="acoes-col">
-        <button class="btn" id="baixar-backup">Baixar backup</button>
+        <button class="btn" id="enviar-link">Enviar link do progresso</button>
+        <button class="btn btn-2" id="colar-link">Colar link do progresso</button>
+        <button class="btn btn-2" id="baixar-backup">Baixar backup</button>
         <label class="btn btn-2">Restaurar backup<input type="file" id="arquivo-backup" accept=".json,application/json" hidden></label>
         <button class="btn btn-perigo" id="zerar">Apagar todo o progresso</button>
       </div>
