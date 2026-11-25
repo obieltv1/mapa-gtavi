@@ -7,7 +7,7 @@
   const CHAVE_OCULTAS = P + 'ocultas';
   const CHAVE_MODO = P + 'modo';
   const CHAVE_ESC_FEITOS = P + 'esconder-feitos';
-  const OCULTAS_PADRAO = ['Bus Stop', 'Electric Charger', 'ATM'];
+  const OCULTAS_PADRAO = ['Bus Stop', 'Electric Charger', 'ATM', 'Random Event', 'Vehicle Spawn', 'Weapon Pickup'];
   const CHAVE_FECHADAS = P + 'secoes-fechadas';
   const CHAVE_SO = P + 'so'; // modo "só esta categoria": {c, antes: [ocultas de antes]}
   const CHAVE_VISTA = P + 'vista-progresso';
