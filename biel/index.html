@@ -73,9 +73,13 @@
       <div id="lista-progresso"></div>
     </div>
     <div class="painel" data-painel="backup" hidden>
-      <p class="texto">Suas marcações ficam salvas só neste aparelho. Para levar para outro celular ou PC, envie o link do progresso e abra ele lá (ou cole em "Colar link"). O que já estiver marcado no outro aparelho continua.</p>
+      <p class="texto" id="nuvem-status">Carregando a conta…</p>
       <div class="acoes-col">
-        <button class="btn" id="enviar-link">Enviar link do progresso</button>
+        <button class="btn" id="btn-nuvem" disabled>Entrar com Google</button>
+      </div>
+      <p class="texto">Sem conta, as marcações ficam só neste aparelho. Dá para levar para outro pelo link do progresso: o que já estiver marcado lá continua.</p>
+      <div class="acoes-col">
+        <button class="btn btn-2" id="enviar-link">Enviar link do progresso</button>
         <button class="btn btn-2" id="colar-link">Colar link do progresso</button>
         <button class="btn btn-2" id="baixar-backup">Baixar backup</button>
         <label class="btn btn-2">Restaurar backup<input type="file" id="arquivo-backup" accept=".json,application/json" hidden></label>

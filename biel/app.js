@@ -97,6 +97,135 @@
     atualizarProgresso();
     ligarEventos();
     if (!importarDeTexto(location.hash)) abrirDoHash();
+    iniciarNuvem();
+  }
+
+  // ---------- nuvem (Firebase): mesmo progresso em todos os aparelhos logados na mesma conta Google ----------
+  // a chave abaixo é pública por natureza (identifica o projeto); quem protege os dados são as regras do Firestore
+  const FB = {
+    apiKey: 'AIzaSyB8-Y6EUNe7f3-v5BF5RhhE3250X87ZyZ4',
+    authDomain: 'mapa-leonida-32340.firebaseapp.com',
+    projectId: 'mapa-leonida-32340',
+    appId: '1:429313019859:web:4e04d0bf07b3159b63e926',
+  };
+  const FB_V = '10.12.2';
+  const PASTA = (location.pathname.replace(/[^/]*$/, '').split('/').filter(Boolean).pop() || 'raiz').replace(/[^\w-]/g, '');
+  const CHAVE_UID = P + 'nuvem-uid'; // conta que já juntou o progresso deste aparelho
+  let fbAuth = null, docNuvem = null, pararNuvem = null, tNuvem;
+
+  function salvarFeitos() {
+    gravar(CHAVE_FEITOS, [...feitos]);
+    if (!docNuvem) return;
+    clearTimeout(tNuvem);
+    tNuvem = setTimeout(() => {
+      docNuvem.set({ feitos: [...feitos], em: Date.now() }).catch(() => {});
+    }, 800);
+  }
+
+  function carregarScript(src) {
+    return new Promise((ok, erro) => {
+      const s = document.createElement('script');
+      s.src = src; s.onload = ok; s.onerror = erro;
+      document.head.appendChild(s);
+    });
+  }
+
+  function pintarConta(user, estado) {
+    const b = $('#btn-nuvem'), t = $('#nuvem-status');
+    if (!b) return;
+    if (estado === 'off') {
+      b.textContent = 'Entrar com Google';
+      b.disabled = true;
+      t.textContent = 'Sem internet agora. Seu progresso continua salvo neste aparelho.';
+      return;
+    }
+    b.disabled = false;
+    if (user) {
+      b.textContent = 'Sair da conta';
+      b.classList.add('btn-2');
+      t.textContent = `Sincronizando com ${user.email || 'sua conta Google'}. O que marcar aqui aparece nos outros aparelhos.`;
+    } else {
+      b.textContent = 'Entrar com Google';
+      b.classList.remove('btn-2');
+      t.textContent = 'Entre com a mesma conta Google no celular e no PC para o progresso aparecer nos dois sozinho.';
+    }
+  }
+
+  async function iniciarNuvem() {
+    try {
+      const base = `https://www.gstatic.com/firebasejs/${FB_V}/`;
+      await carregarScript(base + 'firebase-app-compat.js');
+      await Promise.all([carregarScript(base + 'firebase-auth-compat.js'), carregarScript(base + 'firebase-firestore-compat.js')]);
+    } catch {
+      pintarConta(null, 'off');
+      return;
+    }
+    firebase.initializeApp(FB);
+    fbAuth = firebase.auth();
+    const db = firebase.firestore();
+    try { await db.enablePersistence({ synchronizeTabs: true }); } catch { /* sem cache offline neste navegador */ }
+    fbAuth.getRedirectResult().catch(() => {});
+    fbAuth.onAuthStateChanged((user) => {
+      if (pararNuvem) { pararNuvem(); pararNuvem = null; }
+      docNuvem = null;
+      pintarConta(user);
+      if (user) ligarNuvem(db, user);
+    });
+  }
+
+  async function ligarNuvem(db, user) {
+    const ref = db.collection('users').doc(user.uid).collection('mapas').doc(PASTA);
+    // 1ª vez desta conta neste aparelho: junta o que já estava marcado aqui com o que está na nuvem
+    if (ler(CHAVE_UID, null) !== user.uid) {
+      try {
+        const snap = await ref.get();
+        const daNuvem = (snap.exists && snap.data().feitos) || [];
+        const antes = feitos.size;
+        daNuvem.forEach((id) => { if (porId.has(id) && marcavel(porId.get(id))) feitos.add(id); });
+        docNuvem = ref;
+        gravar(CHAVE_UID, user.uid);
+        await ref.set({ feitos: [...feitos], em: Date.now() });
+        gravar(CHAVE_FEITOS, [...feitos]);
+        aplicarTudo();
+        const novos = feitos.size - antes;
+        aviso(novos ? `Conta ligada: ${novos} marcaç${novos > 1 ? 'ões vieram' : 'ão veio'} da nuvem.` : 'Conta ligada. Seu progresso está salvo na nuvem.');
+      } catch {
+        aviso('Não deu para ligar a conta agora. Tente de novo com internet.');
+        return;
+      }
+    }
+    docNuvem = ref;
+    // depois disso a nuvem manda: o que mudar em outro aparelho (marcar ou desmarcar) chega aqui
+    pararNuvem = ref.onSnapshot((snap) => {
+      if (!snap.exists || snap.metadata.hasPendingWrites) return;
+      const lista = (snap.data().feitos || []).filter((id) => porId.has(id) && marcavel(porId.get(id)));
+      const igual = lista.length === feitos.size && lista.every((id) => feitos.has(id));
+      if (igual) return;
+      feitos = new Set(lista);
+      gravar(CHAVE_FEITOS, [...feitos]);
+      aplicarTudo();
+    }, () => {});
+  }
+
+  async function botaoNuvem() {
+    if (!fbAuth) return;
+    if (fbAuth.currentUser) {
+      if (!confirm('Sair da conta? O progresso continua neste aparelho, mas para de sincronizar.')) return;
+      await fbAuth.signOut();
+      localStorage.removeItem(CHAVE_UID);
+      aviso('Você saiu da conta.');
+      return;
+    }
+    const prov = new firebase.auth.GoogleAuthProvider();
+    prov.setCustomParameters({ prompt: 'select_account' });
+    try {
+      await fbAuth.signInWithPopup(prov);
+    } catch (e) {
+      const c = e && e.code;
+      if (c === 'auth/popup-closed-by-user' || c === 'auth/cancelled-popup-request') return;
+      // app instalado no iPhone às vezes bloqueia a janelinha: entra pela página inteira
+      try { await fbAuth.signInWithRedirect(prov); } catch { aviso('Não deu para entrar agora. Tente de novo.'); }
+    }
   }
 
   function montarMapa() {
@@ -454,7 +583,7 @@
   function alternarFeito(l) {
     if (!marcavel(l)) return;
     if (feitos.has(l.id)) feitos.delete(l.id); else feitos.add(l.id);
-    gravar(CHAVE_FEITOS, [...feitos]);
+    salvarFeitos();
     l._m.setStyle(estilo(l));
     if (esconderFeitos) desenharPontos();
     pintarFiltros();
@@ -527,7 +656,7 @@
       const novos = lista.map(Number).filter((id) => porId.has(id) && marcavel(porId.get(id)));
       if (!confirm(`Trocar o progresso deste aparelho (${feitos.size} feitos) pelo do backup (${novos.length} feitos)?`)) return;
       feitos = new Set(novos);
-      gravar(CHAVE_FEITOS, [...feitos]);
+      salvarFeitos();
       aplicarTudo();
       aviso(`Backup restaurado: ${novos.length} locais feitos.`);
     } catch {
@@ -553,7 +682,7 @@
     if (location.hash.includes('p=')) history.replaceState(null, '', location.pathname);
     const antes = feitos.size;
     ids.forEach((id) => feitos.add(id));
-    gravar(CHAVE_FEITOS, [...feitos]);
+    salvarFeitos();
     aplicarTudo();
     const novos = feitos.size - antes;
     aviso(novos ? `Progresso importado: ${novos} marcaç${novos > 1 ? 'ões novas' : 'ão nova'}.` : 'Esse progresso já estava todo marcado aqui.');
@@ -696,6 +825,7 @@
       desenharPontos();
     });
 
+    $('#btn-nuvem').addEventListener('click', botaoNuvem);
     $('#baixar-backup').addEventListener('click', baixarBackup);
     $('#enviar-link').addEventListener('click', enviarLink);
     $('#colar-link').addEventListener('click', colarLink);
@@ -708,7 +838,7 @@
       if (!feitos.size) { aviso('Ainda não tem nada marcado.'); return; }
       if (!confirm(`Apagar as ${feitos.size} marcações deste aparelho? Não dá para desfazer sem um backup.`)) return;
       feitos.clear();
-      gravar(CHAVE_FEITOS, []);
+      salvarFeitos();
       aplicarTudo();
       aviso('Progresso apagado.');
     });
