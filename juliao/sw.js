@@ -1,7 +1,7 @@
 // Guarda o app para abrir sem internet; os pedaços do mapa vão ficando guardados conforme você navega.
 // o nome do cache leva a pasta, para o mapa do Biel e o do pai não apagarem o cache um do outro
 const BASE = new URL('./', self.location).pathname;
-const VERSAO = 'leonida-v11' + BASE;
+const VERSAO = 'leonida-v12' + BASE;
 const APP = ['./', 'index.html', 'estilo.css', 'app.js', 'guia.js', 'guia.json', 'dados.json', 'manifest.webmanifest',
   'vendor/leaflet.js', 'vendor/leaflet.css', 'icones/icone-192.png', 'icones/icone-512.png', 'icones/icone-180.png', 'icones/lista.png', 'icones/mapa.png'];
 // ícones do jogo usados no guia
@@ -12,7 +12,8 @@ const FOTOS = 'leonida-fotos'; // fotos vistas ficam guardadas (servem aos dois 
 const LIMITE_TILES = 4000;
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(VERSAO).then((c) => c.addAll(APP)).then(() => self.skipWaiting()));
+  // cache: 'reload' para não guardar uma cópia velha que o navegador ainda tinha
+  e.waitUntil(caches.open(VERSAO).then((c) => c.addAll(APP.map((u) => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', (e) => {
@@ -50,7 +51,10 @@ self.addEventListener('fetch', (e) => {
 
   if (url.origin === location.origin) {
     // rede primeiro (pega atualização), cache se estiver sem internet
-    e.respondWith(fetch(req).then((resp) => {
+    // no-cache: sempre confere com o site se o arquivo mudou (o GitHub deixa o navegador reaproveitar por 10 min)
+    // (abrir a página é um pedido de navegação, que não aceita opções: vai pelo endereço)
+    const fresco = req.mode === 'navigate' ? new Request(url.href, { cache: 'no-cache' }) : new Request(req, { cache: 'no-cache' });
+    e.respondWith(fetch(fresco).then((resp) => {
       if (resp.ok) { const cp = resp.clone(); caches.open(VERSAO).then((c) => c.put(req, cp)); }
       return resp;
     }).catch(() => caches.match(req, { ignoreSearch: true }).then((r) => r || caches.match('index.html'))));
